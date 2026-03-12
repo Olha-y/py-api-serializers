@@ -45,7 +45,6 @@ class Movie(models.Model):
     class Meta:
         ordering = ["title"]
 
-
     @property
     def get_movie_title(self) -> str:
         return self.title
