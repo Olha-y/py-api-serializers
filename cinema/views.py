@@ -60,10 +60,9 @@ class MovieViewSet(ModelViewSet):
         return MovieSerializer
 
     def get_queryset(self) -> QuerySet:
-        queryset = self.queryset
         if self.action in ("list", "retrieve"):
-            return queryset.prefetch_related("actors", "genres")
-        return queryset
+            return Movie.objects.prefetch_related("actors", "genres")
+        return Movie.objects.all()
 
 
 class MovieSessionViewSet(ModelViewSet):
@@ -78,7 +77,6 @@ class MovieSessionViewSet(ModelViewSet):
         return MovieSessionSerializer
 
     def get_queryset(self) -> QuerySet:
-        queryset = self.queryset
         if self.action in ("list", "retrieve"):
-            return queryset.select_related("movie", "cinema_hall")
-        return queryset
+            return MovieSession.objects.select_related("movie", "cinema_hall")
+        return Movie.objects.all()
