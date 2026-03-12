@@ -27,6 +27,10 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
 
+    @property
+    def full_name(self) -> str:
+        return f"{self.first_name} {self.last_name}"
+
     def __str__(self):
         return self.first_name + " " + self.last_name
 
@@ -40,6 +44,11 @@ class Movie(models.Model):
 
     class Meta:
         ordering = ["title"]
+
+
+    @property
+    def get_movie_title(self) -> str:
+        return self.title
 
     def __str__(self):
         return self.title
@@ -63,11 +72,11 @@ class Order(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
 
-    def __str__(self):
-        return str(self.created_at)
-
     class Meta:
         ordering = ["-created_at"]
+
+    def __str__(self):
+        return str(self.created_at)
 
 
 class Ticket(models.Model):
